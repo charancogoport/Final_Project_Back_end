@@ -3,4 +3,5 @@ class PostTable < ApplicationRecord
     validates :content, presence:true,length: {minimum: 50,maximum: 1000}
     # validates :email, presence:true
     belongs_to :user_table
+    has_many :likes_table
 end

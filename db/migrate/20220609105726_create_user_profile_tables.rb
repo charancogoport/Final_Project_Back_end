@@ -1,7 +1,7 @@
-class CreateUserProfileTables < ActiveRecord::Migration[7.0]
+class CreateUserProfileTable < ActiveRecord::Migration[7.0]
   def change
     create_table :user_profile_tables do |t|
-        t.references :user_table,foreign_key: true
+        t.references :user_table,null: false,foreign_key: true
         t.string :user_description
         t.string :first_name
         t.string :last_name
@@ -11,5 +11,7 @@ class CreateUserProfileTables < ActiveRecord::Migration[7.0]
         t.timestamp :updated_at
       # t.timestamps
     end
-  end
+  en
 end
+
+

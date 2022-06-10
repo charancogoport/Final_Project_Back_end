@@ -10,18 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_09_110752) do
-  create_table "likes_cal_tables", force: :cascade do |t|
-    t.integer "user_table_id"
-    t.integer "post_table_id"
+ActiveRecord::Schema[7.0].define(version: 2022_06_10_074258) do
+  create_table "likes_tables", force: :cascade do |t|
+    t.integer "user_table_id", null: false
+    t.integer "post_table_id", null: false
     t.datetime "created_at", precision: nil
     t.boolean "status"
-    t.index ["post_table_id"], name: "index_likes_cal_tables_on_post_table_id"
-    t.index ["user_table_id"], name: "index_likes_cal_tables_on_user_table_id"
+    t.index ["post_table_id"], name: "index_likes_tables_on_post_table_id"
+    t.index ["user_table_id"], name: "index_likes_tables_on_user_table_id"
   end
 
   create_table "post_tables", force: :cascade do |t|
-    t.integer "user_table_id"
+    t.integer "user_table_id", null: false
     t.string "title_of_post"
     t.string "content"
     t.binary "image"
@@ -31,7 +31,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_09_110752) do
   end
 
   create_table "user_profile_tables", force: :cascade do |t|
-    t.integer "user_table_id"
+    t.integer "user_table_id", null: false
     t.string "user_description"
     t.string "first_name"
     t.string "last_name"
@@ -50,8 +50,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_09_110752) do
     t.datetime "updated_at", precision: nil
   end
 
-  add_foreign_key "likes_cal_tables", "post_tables"
-  add_foreign_key "likes_cal_tables", "user_tables"
+  add_foreign_key "likes_tables", "post_tables"
+  add_foreign_key "likes_tables", "user_tables"
   add_foreign_key "post_tables", "user_tables"
   add_foreign_key "user_profile_tables", "user_tables"
 end

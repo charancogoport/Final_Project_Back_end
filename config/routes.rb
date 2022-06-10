@@ -5,11 +5,15 @@ Rails.application.routes.draw do
   root "pages#index"
   get '/login/(:id)', to: 'pages#login'
   get '/posts/(:id)', to: 'pages#posts'
+  post '/createpost', to: 'pages#createpost'
   get '/search/(:title)', to: 'pages#search'
-  post '/inputpost', to:'pages#inputpost'
-  put '/editpost', to:'pages#editpost'
-  get 'likes', to:'pages#likes'
-  
+  post '/inputpost/(:user_id)', to:'pages#inputpost'
+  put '/editpost/(:id)', to:'pages#editpost'
+  get 'likes/(:id)', to:'pages#likes'
+  delete '/deletepost/(:id)', to:'pages#deletepost'
+
 end
+
+
 
 
