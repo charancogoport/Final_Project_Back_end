@@ -16,6 +16,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_09_110752) do
     t.integer "post_table_id"
     t.datetime "created_at", precision: nil
     t.boolean "status"
+    t.index ["post_table_id"], name: "index_likes_cal_tables_on_post_table_id"
+    t.index ["user_table_id"], name: "index_likes_cal_tables_on_user_table_id"
   end
 
   create_table "post_tables", force: :cascade do |t|
@@ -25,6 +27,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_09_110752) do
     t.binary "image"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
+    t.index ["user_table_id"], name: "index_post_tables_on_user_table_id"
   end
 
   create_table "user_profile_tables", force: :cascade do |t|
@@ -32,9 +35,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_09_110752) do
     t.string "user_description"
     t.string "first_name"
     t.string "last_name"
+    t.string "gender"
     t.binary "profile_picture"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
+    t.index ["user_table_id"], name: "index_user_profile_tables_on_user_table_id"
   end
 
   create_table "user_tables", force: :cascade do |t|
@@ -45,4 +50,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_09_110752) do
     t.datetime "updated_at", precision: nil
   end
 
+  add_foreign_key "likes_cal_tables", "post_tables"
+  add_foreign_key "likes_cal_tables", "user_tables"
+  add_foreign_key "post_tables", "user_tables"
+  add_foreign_key "user_profile_tables", "user_tables"
 end

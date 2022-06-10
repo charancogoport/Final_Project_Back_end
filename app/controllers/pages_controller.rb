@@ -1,5 +1,5 @@
 class PagesController< ApplicationController
-    
+
     skip_before_action :verify_authenticity_token
     def index
         render json: UserTable.all()
@@ -30,8 +30,19 @@ class PagesController< ApplicationController
             render json: PostTable.all()
         end
     end
+    def editpost
+        element=PostTable.find(params[:id])
+        element.update(params.permit(:title_of_post,:content))
+        render json:element
+    end
     def inputpost
-        render json: PostTable.create(params.permit(:title_of_post, :content,:image))
+        obj =  PostTable.create(params.permit(:title_of_post, :content,:image))
+        obj.save()
+        render json: obj
+    end
+    def likes
+        count= LikesCalTables.find_all_by_post_table_id(params[:id]).count
+        render json: count
     end
 end
 

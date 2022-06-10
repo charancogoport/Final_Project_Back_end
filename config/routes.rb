@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   get '/posts/(:id)', to: 'pages#posts'
   get '/search/(:title)', to: 'pages#search'
   post '/inputpost', to:'pages#inputpost'
-
+  put '/editpost', to:'pages#editpost'
+  get 'likes', to:'pages#likes'
+  
 end
 
 
