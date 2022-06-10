@@ -13,8 +13,8 @@ class PagesController< ApplicationController
     def login
         if(params[:id])
             render json: UserTable.find(params[:id])
-        elsif(params[:n])
-            render json: UserTable.where('user_name LIKE ?',"%#{params[:n]}%")
+        # elsif(params[:n])
+            # render json: UserTable.where('user_name LIKE ?',"%#{params[:n]}%")
         else
         render json: UserTable.all()
         end
