@@ -7,6 +7,9 @@ class PagesController< ApplicationController
     #     render json: User
     # end
     skip_before_action :verify_authenticity_token
+    def create
+        render json: UserTable.create(params.permit(:user_name,:password,:email))
+    end
     def login
         if(params[:id])
             render json: UserTable.find(params[:id])
@@ -15,6 +18,10 @@ class PagesController< ApplicationController
         else
         render json: UserTable.all()
         end
+    end
+    def profile
+        render json: UserProfileTable.create(params.permit(:user_table_id,:user_description,:first_name,:last_name,:gender,:profile_picture))
+        # render json: UserProfileTable.all()
     end
     def posts
         if(params[:id])
@@ -68,8 +75,20 @@ class PagesController< ApplicationController
         # trend = LikesTable.group("post_table_id").order("count").count
         # LikesTable.select("count(*) as Like_count").group("post_table_id").order
         results = ActiveRecord::Base.connection.exec_query("select count(*) as like from likes_tables group by post_table_id order by like desc;")
+        # LikesTable.select("count(*) as val").group('post_table_id').order('val desc')
         render json:results
     end
+    def userposts
+        user_table_id=params[:id]
+        posts = ActiveRecord::Base.connection.exec_query("select * from post_tables where user_table_id=?",user_table_id)
+        render json:posts
+    end
+    def saved
+        user_table_id=params[:id]
+        saved = ActiveRecord::Base.connection.exec_query("select * from post_tables as p join likes_tables as l where l.user_table_id=? and l.status=true",user_table_id)
+        render json:saved
+    end
+
 end
 
 
