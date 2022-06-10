@@ -1,8 +1,8 @@
 class PagesController< ApplicationController
     
-    # def index
-    #     render json: UserTable.all()
-    # end
+    def index
+        render json: UserTable.all()
+    end
     # def login
     #     render json: User
     # end
@@ -65,7 +65,10 @@ class PagesController< ApplicationController
         # render json: "llll"
     end
     def trending
-
+        # trend = LikesTable.group("post_table_id").order("count").count
+        # LikesTable.select("count(*) as Like_count").group("post_table_id").order
+        results = ActiveRecord::Base.connection.exec_query("select count(*) as like from likes_tables group by post_table_id order by like desc;")
+        render json:results
     end
 end
 

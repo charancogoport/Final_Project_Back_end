@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   put '/editpost/(:id)', to:'pages#editpost'
   get 'likes/(:id)', to:'pages#likes'
   delete '/deletepost/(:id)', to:'pages#deletepost'
+  get 'trending', to: 'pages#trending'
 
 end
 
