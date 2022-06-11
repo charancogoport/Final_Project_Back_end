@@ -9,13 +9,15 @@ Rails.application.routes.draw do
   post '/createpost', to: 'pages#createpost'
   get '/search/(:title)', to: 'pages#search'
   post '/inputpost/(:user_id)', to:'pages#inputpost'
-  post '/profile', to:'pages#profile'
+  # get '/userposts/(:id)', to: 'pages#userposts'
+  get '/profile/(:id)', to:'pages#profile'
   put '/editpost/(:id)', to:'pages#editpost'
   get 'likes/(:id)', to:'pages#likes'
   delete '/deletepost/(:id)', to:'pages#deletepost'
   get 'trending', to: 'pages#trending'
   get '/userposts/(:id)', to: 'pages#userposts'
-  get '/saved/(:id)', to: 'pages#saved'
+  # get '/saved/(:id)', to: 'pages#saved'
+  get '/some/(:id)', to: 'pages#some'
 
 end
 

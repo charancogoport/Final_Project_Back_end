@@ -20,8 +20,14 @@ class PagesController< ApplicationController
         end
     end
     def profile
-        render json: UserProfileTable.create(params.permit(:user_table_id,:user_description,:first_name,:last_name,:gender,:profile_picture))
-        # render json: UserProfileTable.all()
+        render json: UserProfileTable.find(user_table_id: params[:id])
+    end
+    def userposts
+        if(params[:id])
+            render json: PostTable.find(user_table_id: params[:id])
+        else
+            render json: PostTable.all()
+        end
     end
     def posts
         if(params[:id])
@@ -50,6 +56,9 @@ class PagesController< ApplicationController
         obj.save()
         render json: obj
     end
+    def increaselike
+        render json: LikesTable.create(params.permit(:user_table_id,post_table_id))
+    end
     def likes
         # ActiveRecord::Base.connection.tables.map { |t| {t=>  ActiveRecord::Base.connection.execute("select count(*) from #{t}")[0]} }
         # likes = LikesCalTables.where('post_table_id EQUALS TO ?', "#{params[:post_id]}").count
@@ -66,8 +75,8 @@ class PagesController< ApplicationController
         # SET Foriegn_key_CHECKS=0;
         LikesTable.where(:post_table_id => params[:id]).destroy_all
         # del.destroy()
-        # render json: del
         PostTable.where(:id => params[:id]).destroy_all
+        # render json: del
         # val.destroy()
         # render json: "llll"
     end
@@ -88,6 +97,12 @@ class PagesController< ApplicationController
         saved = ActiveRecord::Base.connection.exec_query("select * from post_tables as p join likes_tables as l where l.user_table_id=? and l.status=true",user_table_id)
         render json:saved
     end
+    def some
+        p.user_table_id=params[:id]
+        val=ActiveRecord::Base.connection.exec_query("select u.id,p.id,p.user_table_id,p.title_of_post,p.content,p.image from post_tables as p join user_tables as u on u.id=p.user_table_id where p.user_table_id=?",p.user_table_id)
+        render json:val
+    end
+
 
 end
 
